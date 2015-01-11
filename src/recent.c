@@ -1,7 +1,7 @@
 #include "recent.h"
 
 #define NUM_R_SECTIONS 1
-#define NUM_R_ITEMS 3
+#define NUM_R_ITEMS 4
 #define R_KEY 2
 
 static SimpleMenuItem recent_menu[NUM_R_ITEMS];
@@ -22,21 +22,25 @@ static void send_recent_callback(int index, void *ctx) {
   app_message_outbox_send();
 }
 
-void recent_window_load(Window *window){
-  int curr_item = 0;
-
-  recent_menu[curr_item++] = (SimpleMenuItem){
-    .title = "Ryan",
+void populate_recents(){
+  recent_menu[0] = (SimpleMenuItem){
+    .title = recent_name[0],
     .callback = send_recent_callback,
   };
 
-  recent_menu[curr_item++] = (SimpleMenuItem){
-    .title = "Fedor",
+  recent_menu[1] = (SimpleMenuItem){
+    .title = recent_name[1],
     .callback = send_recent_callback,
   };
 
-  recent_menu[curr_item++] = (SimpleMenuItem){
-    .title = "Mike",
+  recent_menu[2] = (SimpleMenuItem){
+    .title = recent_name[2],
+    .callback = send_recent_callback,
+    .icon = recent_icon_image,
+  };
+    
+  recent_menu[3] = (SimpleMenuItem){
+    .title = recent_name[3],
     .callback = send_recent_callback,
     .icon = recent_icon_image,
   };
@@ -45,7 +49,9 @@ void recent_window_load(Window *window){
     .num_items = NUM_R_ITEMS,
     .items = recent_menu,
   };
-  
+}
+
+void recent_window_load(Window *window){
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_frame(window_layer);
 

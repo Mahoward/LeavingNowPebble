@@ -1,5 +1,5 @@
 #include "menu_window.h"
-#include "contacts.h"
+#include "recent.h"
 #include <string.h>
   
 #define KEY_DATA 5
@@ -60,20 +60,20 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         break;
       case C_1:
         i = t->key - 6;
-        strcpy(contacts_name[i],t->value->cstring);
+        strcpy(recent_name[i],t->value->cstring);
         break;
       case C_2:
         i = t->key - 6;
-        strcpy(contacts_name[i],t->value->cstring);
+        strcpy(recent_name[i],t->value->cstring);
         break;
       case C_3:
         i = t->key - 6;
-        strcpy(contacts_name[i],t->value->cstring);
+        strcpy(recent_name[i],t->value->cstring);
         break;
       case C_4:
         i = t->key - 6;
-        strcpy(contacts_name[i],t->value->cstring);
-        populate_contacts();
+        strcpy(recent_name[i],t->value->cstring);
+        populate_recents();
         break;
     }
     // Get next pair, if any
