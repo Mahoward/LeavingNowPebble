@@ -2,8 +2,8 @@
 #include "contacts.h"
 
 #define NUM_C_SECTIONS 1
-#define NUM_C_ITEMS 3
 #define C_KEY 4
+#define NUM_C_ITEMS 4
 
 static SimpleMenuItem contact_menu[NUM_C_ITEMS];
 static SimpleMenuLayer *contact_menu_layer;
@@ -23,21 +23,25 @@ static void send_contact_callback(int index, void *ctx) {
   app_message_outbox_send();
 }
 
-void contact_window_load(Window *window){
-  int curr_item = 0;
-
-  contact_menu[curr_item++] = (SimpleMenuItem){
-    .title = "C_Ryan",
+void populate_contacts(){
+  contact_menu[0] = (SimpleMenuItem){
+    .title = contacts_name[0],
     .callback = send_contact_callback,
   };
 
-  contact_menu[curr_item++] = (SimpleMenuItem){
-    .title = "C_Fedor",
+  contact_menu[1] = (SimpleMenuItem){
+    .title = contacts_name[1],
     .callback = send_contact_callback,
   };
 
-  contact_menu[curr_item++] = (SimpleMenuItem){
-    .title = "C_Mike",
+  contact_menu[2] = (SimpleMenuItem){
+    .title = contacts_name[2],
+    .callback = send_contact_callback,
+    .icon = contact_icon_image,
+  };
+  
+  contact_menu[3] = (SimpleMenuItem){
+    .title = contacts_name[3],
     .callback = send_contact_callback,
     .icon = contact_icon_image,
   };
@@ -46,7 +50,9 @@ void contact_window_load(Window *window){
     .num_items = NUM_C_ITEMS,
     .items = contact_menu,
   };
-  
+}
+
+void contact_window_load(Window *window){
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_frame(window_layer);
 

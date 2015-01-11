@@ -1,7 +1,14 @@
 #include "menu_window.h"
-
+#include "contacts.h"
+#include <string.h>
+  
 #define KEY_DATA 5
 #define DATA_TYPE 1
+#define C_1 6
+#define C_2 7
+#define C_3 8
+#define C_4 9
+
 
 /* Alert window appears when message is recieved*/
 static Window *i_message_window;
@@ -28,7 +35,7 @@ static void i_message_window_unload(){
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   // Get the first pair
   Tuple *t = dict_read_first(iterator);
-
+  int i;
   // Process all pairs present
   while (t != NULL) {
     // Long lived buffer
@@ -42,10 +49,31 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         text_layer_set_text(i_text_layer, s_buffer);
         break;
       case DATA_TYPE:
-        window_stack_push(i_message_window, true);
-        // Copy value and display
-        snprintf(s_buffer, sizeof(s_buffer), "Contacts Received%s","");
-        text_layer_set_text(i_text_layer, s_buffer);
+        if(t->value->int32 == 0){
+          /*
+          window_stack_push(i_message_window, true);
+          // Copy value and display
+          snprintf(s_buffer, sizeof(s_buffer), "Contacts Received%s","");
+          text_layer_set_text(i_text_layer, s_buffer);
+          */
+        }
+        break;
+      case C_1:
+        i = t->key - 6;
+        strcpy(contacts_name[i],t->value->cstring);
+        break;
+      case C_2:
+        i = t->key - 6;
+        strcpy(contacts_name[i],t->value->cstring);
+        break;
+      case C_3:
+        i = t->key - 6;
+        strcpy(contacts_name[i],t->value->cstring);
+        break;
+      case C_4:
+        i = t->key - 6;
+        strcpy(contacts_name[i],t->value->cstring);
+        populate_contacts();
         break;
     }
     // Get next pair, if any
