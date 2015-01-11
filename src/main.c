@@ -45,7 +45,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       case KEY_DATA:
         window_stack_push(i_message_window, true);
         // Copy value and display
-        snprintf(s_buffer, sizeof(s_buffer), "Received '%s'", t->value->cstring);
+        snprintf(s_buffer, sizeof(s_buffer), "Message %s!", t->value->cstring);
         text_layer_set_text(i_text_layer, s_buffer);
         break;
       case DATA_TYPE:

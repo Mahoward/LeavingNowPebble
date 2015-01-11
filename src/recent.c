@@ -11,11 +11,8 @@ static SimpleMenuSection recent_menu_sections[NUM_R_SECTIONS];
 static GBitmap *recent_icon_image;
 
 static void send_recent_callback(int index, void *ctx) {
-  recent_menu[index].subtitle = "Selected";
-  layer_mark_dirty(simple_menu_layer_get_layer(recent_menu_layer));
-  
   DictionaryIterator *iter;
-  Tuplet test_tuple =  TupletInteger(R_KEY, index);
+  Tuplet test_tuple =  TupletCString(R_KEY, recent_menu[index].title);
   app_message_outbox_begin(&iter);
   dict_write_tuplet(iter, &test_tuple);
   dict_write_end(iter);
